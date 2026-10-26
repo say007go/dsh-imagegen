@@ -41,6 +41,6 @@ POST {baseUrl}/images/generations?async=true
 
 ## 6. 参考资料
 
-- OpenAI Images API: https://platform.open-docs.openai.com/docs/api-reference/images
+- OpenAI Images API: https://platform.openai.com/docs/api-reference/images
 - 腾讯云 COS Node.js SDK: https://cloud.tencent.com/document/product/436/8629
 - cos-nodejs-sdk-v5: https://github.com/tencentyun/cos-nodejs-sdk-v5

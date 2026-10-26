@@ -121,7 +121,7 @@ dsh-imagegen/
 │   ├── cos.js            # 腾讯云 COS：压缩上传与签名
 │   ├── compress.js       # sharp 参考图压缩
 │   ├── prompt.js         # 提示词后缀
-│   └── size.js           # 尺寸优先级解析
+│   └── size.js           # 尺寸解析
 ├── skills/imagegen/SKILL.md   # 内嵌 Agent 技能
 └── references/api_reference.md
 ```

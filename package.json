@@ -18,6 +18,15 @@
   ],
   "keywords": ["dsh", "imagegen", "duomi", "cos", "text-to-image", "image-to-image"],
   "license": "MIT",
+  "author": "say007go",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/say007go/dsh-imagegen.git"
+  },
+  "bugs": {
+    "url": "https://github.com/say007go/dsh-imagegen/issues"
+  },
+  "homepage": "https://github.com/say007go/dsh-imagegen#readme",
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
