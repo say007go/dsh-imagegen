@@ -1,0 +1,5 @@
+# dsh-imagegen bundle patch
+# 向 Cordis 组合插入主插件。id 唯一，name 指向本包。
+- insert:
+    - id: imagegen
+      name: 'dsh-imagegen'
