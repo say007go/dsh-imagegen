@@ -114,6 +114,7 @@ dsh-imagegen/
 ├── icon.svg                # 插件列表图标
 ├── screenshots.json        # 商店截图清单（当前 1 张）
 ├── assets/
+│   ├── icon-180.png        # 插件市场卡片图标（repo-only，不随插件发布）
 │   ├── screenshot-1.png    # 商店截图（浅色配置表单）
 │   └── capture-form.html   # 截图工装，仅开发用，不在 files 中
 ├── references/
@@ -309,6 +310,55 @@ with sync_playwright() as p:
 7. 不要先改轮询参数、确认方式、markdown 预览策略；这些是用户明确要求
 8. 要动协议/格式/依赖前，先确认是否影响 duomi 主路径和 `openai-sync` / `edits-multipart` 两条逃生通道
 
-## 11. 一句话交接
+## 11. 插件市场上架（2026-10-27）
+
+目标：[awesome-dsh-plugin](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin) 的 `data/plugins/` 列表。收录规则见其 `contributing.md`。
+
+### 已满足
+
+- `package.json` 声明 `dsh.bundle.patch`，同时有 `dsh.client`；不是只有 client 的不可安装包。
+- 根目录有 `cordis.patch.yml`。
+- 仓库是真实实现，不是 meta-package。
+- GitHub topic 已包含 `dsh-plugin` 和 `deepseek-harness-plugin`。
+- `screenshots.json` 有 1 张有效截图（1～8 张范围内）。
+- 当前分类应为 **`vision`**：市场里已有的 imagegen 条目也都在 `vision`，不是 `tools`。
+- 市场卡片图标已补：`assets/icon-180.png`，180×180 PNG（市场要求 GitHub 托管的位图，SVG 不行）。
+
+### 硬性时间门槛
+
+仓库 GitHub `createdAt` 是 **2026-10-26T14:22:48Z**，即北京时间 **2026-10-26 22:22:48**。
+
+- 满 1 天之后才能提交：**2026-10-27 22:22:48（Asia/Shanghai）之后**。
+- 在这之前 PR 会被 CI 的仓库年龄检查拦下，不要提前提交。
+
+### 待提交的 entry
+
+文件：`data/plugins/say007go__dsh-imagegen.yml`
+
+```yaml
+url: https://github.com/say007go/dsh-imagegen
+name: say007go/dsh-imagegen
+category: vision
+description:
+  en: 'Image generation tool for DSH: text-to-image and image-to-image through OpenAI-style or task-based APIs, with session confirmation, ordered reference images (URL/local/optional COS), actual-size reporting, and clickable local-file delivery.'
+  zh: '面向 DSH 的生图工具：通过 OpenAI 风格或任务式接口完成文生图与图生图，支持会话确认、有序参考图（URL/本地/可选 COS）、实际尺寸和可点击本地文件交付。'
+icon: https://raw.githubusercontent.com/say007go/dsh-imagegen/main/assets/icon-180.png
+```
+
+注意：
+
+- `en` 里 `DSH:` 有冒号+空格，**必须加引号**；上面已用单引号。
+- 只加这一个文件，不要手工编辑两个生成的 README。
+- 文件名为 `<owner>__<repo>.yml`，不要放错目录。
+- 当前市场已有多个 imagegen 条目（`dickpy/dsh-imagegen`、`copylee711/dsh-image-gen`、`ankye/...`、`544244857/dsh-image2-plugin` 等）；本插件的差异点是：**会话确认、异步任务 `taskPath`、COS 本地参考图、实际尺寸、只交付可点击本地链接**。PR 描述里说明即可，不要写“比谁更好”。
+
+### PR
+
+- 标题：`Add say007go/dsh-imagegen`
+- 只提交 `data/plugins/say007go__dsh-imagegen.yml` 一个文件。
+- 不需要跑 `generate-readme`，也不需要打 tag/release；安装走 GitHub source + `dsh.bundle`。
+- npm 发布是可选的；不发布也能收录，只是没有下载量数字。
+
+## 12. 一句话交接
 
 > 这是一个“duomi 优先、但保留标准 OpenAI 逃生口”的 DSH 生图插件；当前最重要的是**别缩短 30s/12s/15min 轮询、别恢复 markdown 图片预览、别把 sharp/协议默认改坏**。其余 backlog 按第 8 节逐项处理。

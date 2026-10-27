@@ -131,6 +131,7 @@ dsh-imagegen/
 ├── package.json          # 声明 dsh.bundle + dsh.client + icon
 ├── icon.svg              # 插件列表/详情页图标（替换同名文件即可换图）
 ├── assets/screenshot-1.png  # 商店截图（浅色配置表单）
+├── assets/icon-180.png      # 插件市场卡片图标（仓库资料，不随插件发布）
 ├── screenshots.json      # 商店截图清单
 ├── cordis.patch.yml      # bundle 补丁（插入 imagegen 插件）
 ├── lib/
