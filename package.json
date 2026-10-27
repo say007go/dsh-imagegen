@@ -1,7 +1,7 @@
 {
   "name": "dsh-imagegen",
-  "version": "0.7.5",
-  "description": "DSH文生图/图生图插件：兼容OpenAI风格生图接口，默认适配duomi；标准OpenAI需调整协议、图生图模式和尺寸；文生图和URL参考图无需COS，本地参考图可压缩后存COS；支持自定义提示词后缀。",
+  "version": "0.7.6",
+  "description": "DSH文生图/图生图插件：兼容OpenAI风格生图接口，默认适配多米；标准OpenAI需调整协议、图生图模式和尺寸；文生图和URL参考图无需COS，本地参考图可压缩后存COS；支持自定义提示词后缀。",
   "icon": "./icon.svg",
   "type": "module",
   "main": "./lib/index.js",
