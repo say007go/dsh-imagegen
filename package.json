@@ -1,7 +1,7 @@
 {
   "name": "dsh-imagegen",
-  "version": "0.7.3",
-  "description": "DSH文生图/图生图插件：可接入任意OpenAI兼容的生图接口；文生图和使用已有图片链接作为参考图进行图生图都无需配置COS；若希望用本地图片作为参考图进行图生图，需配置腾讯云COS，图片会先自动压缩再存进COS；还支持自定义提示词后缀。",
+  "version": "0.7.4",
+  "description": "DSH文生图/图生图插件：兼容OpenAI风格生图接口，默认适配duomi；标准OpenAI需调整协议、图生图模式和尺寸；文生图和URL参考图无需COS，本地参考图可压缩后存COS；支持自定义提示词后缀。",
   "icon": "./icon.svg",
   "type": "module",
   "main": "./lib/index.js",
@@ -54,7 +54,9 @@
   },
   "dependencies": {
     "@deepseek-ai/schemastery": ">=3.18.0",
-    "cos-nodejs-sdk-v5": "^2.15.4",
+    "cos-nodejs-sdk-v5": "^2.15.4"
+  },
+  "optionalDependencies": {
     "sharp": ">=0.35.3 <1"
   },
   "peerDependencies": {
