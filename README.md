@@ -1,27 +1,31 @@
 # dsh-imagegen
 
-DSH（DeepSeek Harness）文生图 / 图生图插件：接入**任意 OpenAI 兼容的生图接口**，在对话里一句话出图；可选腾讯云 COS 托管本地参考图，插件详情页自带配置表单；生成前用 `ask_user_question` 让你确认、一次只出一张等使用规则直接写在工具描述里，Agent 开箱即守规矩。
+DSH（DeepSeek Harness）文生图 / 图生图插件：接入 OpenAI 风格的生图接口；默认适配 duomi，标准 OpenAI 需按兼容表调整协议/图生图模式和尺寸；可选腾讯云 COS 托管本地参考图，插件详情页自带配置表单；生成前用 `ask_user_question` 让你确认、一次只出一张等使用规则直接写在工具描述里，Agent 开箱即守规矩。
 
 ## 功能特性
 
 ### 双模式生图
 
-- **文生图**：自然语言描述 → 图片链接
+- **文生图**：自然语言描述 → 图片（本地副本 + 原图链接）
 - **断点续等**：生成超时或被中断时，可凭任务 ID 继续等待同一张图，不重复提交、不重复计费
 - **提交前会话确认**：真正生成前先用 `ask_user_question` 请你确认提示词全文、尺寸/模型、参考图来源（URL/本地路径/附件 ID）和 `save_path`（如填写），选「确认生成」才执行；取消或修改不扣费。确认走会话，不经过 DSH 审批，因此 `approval: never` 的会话也能用
-- **图生图**：参考图可以是 **URL**（直接透传）、**本地文件**（先自动压缩，再托管到腾讯云 COS 供生图站读取）或**对话里上传图片的附件 ID**（形如 `sha256:…`，无需先存文件）；本地路径支持绝对路径，相对路径按**会话工作目录**解析
+- **图生图**：参考图可以是 **URL**（直接透传）、**本地文件**（先自动压缩，再托管到腾讯云 COS 供生图站读取）或**对话里上传图片的附件 ID**（形如 `sha256:…`，无需先存文件）；本地路径支持绝对路径，相对路径按**会话工作目录**解析。压缩依赖 `sharp`（随插件依赖安装）；加载失败时保留原图，并按实际 PNG/JPEG/WebP/GIF 标记类型
 - **多图顺序可追溯**：本地参考图上传 COS 时对象名按 `ref1` / `ref2`… 编号，返回的 `cos_uploads` 带 `index`，日志里能直接对上第几张图
 - **save_path 不覆盖**：指定路径已存在时会报错，避免误覆盖；需要覆盖请先删除旧文件。未指定时默认保存到会话目录的 `images/`
 - **对话内直接显示**：结果会返回 `local_path`；Agent 用本地 markdown 图片把图发进回复，避免远程 URL 在部分界面不渲染
-- 成品图直接返回生图站链接
+- 成品图自动保存本地副本，同时保留原图链接
 
-### 任意 OpenAI 兼容接口
+### 兼容范围（不是所有站都只改三项）
 
-- **Base URL / API Key / 模型 ID 全部可配**——换中转站只需改这三项，代码不用动
-- **协议自动适配**：提交后根据响应自动判断站点类型——
-  - 标准 OpenAI 系：同步请求，直接返回图片
-  - 异步任务系（如多米）：提交拿任务 ID，再轮询取结果
-  - 也可手动钉死 `openai-sync` / `duomi-async`（个别"半标准"站点用）
+| 站点类型 | `protocol` | 图生图模式 | 备注 |
+|---|---|---|---|
+| duomi / 任务式 | `auto` 或 `async-task` | `image-array` | 默认；首查 30s，适合 ≥1 分钟生成 |
+| 标准 OpenAI 同步 | `openai-sync` | `edits-multipart` | 单次长请求，不轮询 |
+| 其它任务式 | `async-task` + `taskPath` | 按站点 | `taskPath` 默认 `/tasks/{id}`，可填完整 URL |
+
+- **Base URL / API Key / 模型 ID 可配，但换站还要确认协议、图生图模式和模型支持的尺寸**——不是只改三项
+- **协议自动适配**：`auto` 是 duomi 优先；标准 OpenAI 建议强制 `openai-sync`，避免 `auto` 先发 `?async=true` 被慢同步站拖到 30 秒超时
+- 异步任务系（如 duomi）：提交拿任务 ID，再按 `taskPath` 轮询；`duomi-async` 是 `async-task` 的兼容别名
 - 兼容多种返回字段（`url` / `b64_json` / `images[0].url` 等）；图片会统一保存一份本地副本用于对话显示（`save_path` 可指定位置）
 
 ### 提示词后缀
@@ -31,7 +35,7 @@ DSH（DeepSeek Harness）文生图 / 图生图插件：接入**任意 OpenAI 兼
 
 ### 尺寸
 
-- 表单里的**默认分辨率**作为兜底（默认 4K，多米系分辨率不分档收费）；单次生成可临时指定任意分辨率
+- 表单里的**默认分辨率**作为兜底（默认 4K，duomi 系分辨率不分档收费）；单次生成可临时指定任意分辨率
 - 结果里的 `size` 是**请求尺寸**；`actual_size` 是**实际图片尺寸**。图片会自动落一份本地副本（`save_path` 可指定位置）并读图片头；上游可能降采样，以 `actual_size` 为准
 
 ### 配置与安全
@@ -67,7 +71,7 @@ dsh plugin --profile <你的profile名> add github:say007go/dsh-imagegen
 
 | 分组 | 字段 | 说明 |
 |------|------|------|
-| 生图接口 | Base URL | 默认多米API，可自行更换API平台 |
+| 生图接口 | Base URL | 默认 duomi，可自行更换 API 平台 |
 | | API Key | 没有 Key？[点击注册多米API](https://duomiapi.com/user/register?cps=S9hKE2Oq) |
 | | Model | 输入模型 ID，默认 `gpt-image-2.5-flare`（速度较快），也可换其他模型 |
 | | 默认分辨率 | 默认 4K，可自行设置 |
@@ -113,7 +117,7 @@ POST {baseUrl}/images/generations?async=true
 
 ```
 本地参考图 → sharp 压缩（JPEG / 2048px）→ 上传 COS → 签名 URL
-          → 拼接提示词后缀 → 提交生图 → 返回链接
+          → 拼接提示词后缀 → 提交生图 → 本地副本 + 原图链接
 ```
 
 ## 目录结构
@@ -129,11 +133,12 @@ dsh-imagegen/
 │   ├── index.js          # 主插件：注册 image_generate 工具（含使用规则）
 │   ├── client.js         # 插件详情页配置表单（浏览器端）
 │   ├── config.js         # 配置 schema
-│   ├── protocol.js       # 生图协议适配（同步/异步自动判定、图生图双模式）
+│   ├── protocol.js       # 生图协议适配（同步/异步、任务路径、图生图双模式）
+│   ├── abort.js          # 取消与请求超时信号
 │   ├── cos.js            # 腾讯云 COS：压缩上传与签名
 │   ├── compress.js       # sharp 参考图压缩
 │   ├── prompt.js         # 提示词后缀
-│   ├── image-size.js     # 从图片头读实际尺寸（PNG/JPEG/GIF/WebP）
+│   ├── image-size.js     # 图片头宽高/媒体类型（PNG/JPEG/GIF/WebP）
 │   └── size.js           # 尺寸解析
 └── references/api_reference.md
 ```

@@ -2,6 +2,17 @@
 
 本项目遵循 [语义化版本](https://semver.org/lang/zh-CN/)。0.x 阶段：`minor` 表示破坏性变更，`patch` 表示修复。
 
+## [0.7.3] - 2026-10-27
+
+### 变更
+
+- **通用性**：新增 `provider.taskPath`（默认 `/tasks/{id}`，支持完整 URL）；`async-task` 成为任务式协议名，`duomi-async` 保留为兼容别名。`auto` 仍是 duomi 优先，标准 OpenAI 应显式使用 `openai-sync`。
+- **参考图格式**：`sharp` 从 peer 移到 dependencies；无 sharp 时保留真实 MIME/扩展名，不再把 PNG/WebP 伪装成 JPEG。COS key/ContentType、edits Blob 均按实际格式。
+- **edits multipart**：按实际 MIME/文件名发送；多图使用 `image[]`，单图使用 `image`。
+- **清理**：删除未使用的 `n` 参数和客户端 `Field` 的 number/options 死分支；新增 `lib/abort.js` 统一取消/超时；补 WebP VP8L 尺寸解析；加 `engines.node >= 18`。
+- 默认 COS key 前缀改为 `imagegen-input/`；`task_id` 续等、轮询节奏（30s 首查 / 12s 间隔 / 15min 总时长）保持不变。
+- 文档更新：不再声称“任意 OpenAI 只需改三项”，补充 duomi / 标准 OpenAI / 其它任务式站的兼容表。
+
 ## [0.7.2] - 2026-10-27
 
 ### 修复

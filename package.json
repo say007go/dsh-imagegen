@@ -1,6 +1,6 @@
 {
   "name": "dsh-imagegen",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "DSH文生图/图生图插件：可接入任意OpenAI兼容的生图接口；文生图和使用已有图片链接作为参考图进行图生图都无需配置COS；若希望用本地图片作为参考图进行图生图，需配置腾讯云COS，图片会先自动压缩再存进COS；还支持自定义提示词后缀。",
   "icon": "./icon.svg",
   "type": "module",
@@ -29,6 +29,9 @@
   ],
   "license": "MIT",
   "author": "say007go",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/say007go/dsh-imagegen.git"
@@ -51,12 +54,12 @@
   },
   "dependencies": {
     "@deepseek-ai/schemastery": ">=3.18.0",
-    "cos-nodejs-sdk-v5": "^2.15.4"
+    "cos-nodejs-sdk-v5": "^2.15.4",
+    "sharp": ">=0.35.3 <1"
   },
   "peerDependencies": {
     "@deepseek-ai/cordis": "^4.0.1",
     "@deepseek-ai/dsh-credentials": ">=0.2.0-rc.2 <0.2.1 || >=0.2.1-rc.1 <0.3.0-0",
-    "@deepseek-ai/dsh-tools": ">=0.2.0-rc.2 <0.2.1 || >=0.2.1-rc.1 <0.3.0-0",
-    "sharp": ">=0.35.3 <1"
+    "@deepseek-ai/dsh-tools": ">=0.2.0-rc.2 <0.2.1 || >=0.2.1-rc.1 <0.3.0-0"
   }
 }
