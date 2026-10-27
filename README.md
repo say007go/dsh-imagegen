@@ -71,7 +71,7 @@ dsh plugin --profile <你的profile名> add github:say007go/dsh-imagegen
 
 | 分组 | 字段 | 说明 |
 |------|------|------|
-| 生图接口 | Base URL | 默认多米，可自行更换 API 平台 |
+| 生图接口 | Base URL | 默认多米API，可自行更换 API 平台 |
 | | API Key | 没有 Key？[点击注册多米API](https://duomiapi.com/user/register?cps=S9hKE2Oq) |
 | | Model | 输入模型 ID，默认 `gpt-image-2.5-flare`（速度较快），也可换其他模型 |
 | | 默认分辨率 | 默认 4K，可自行设置 |
