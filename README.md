@@ -127,6 +127,7 @@ POST {baseUrl}/images/generations?async=true
 
 ```
 dsh-imagegen/
+├── HANDOFF.md            # 开发交接（不随插件发布）
 ├── package.json          # 声明 dsh.bundle + dsh.client + icon
 ├── icon.svg              # 插件列表/详情页图标（替换同名文件即可换图）
 ├── assets/screenshot-1.png  # 商店截图（浅色配置表单）
@@ -152,6 +153,10 @@ dsh-imagegen/
 
 - **密钥安全**：COS 建议使用腾讯云**子账号最小权限**密钥（只授 COS 读写），不用主账号密钥；插件界面与对话中永不回显密钥值
 - **费用提示**：对象存储（COS）与数据万象（CI）为腾讯云付费服务，使用前请知悉——[COS 计费](https://cloud.tencent.com/document/product/436/16871) ｜ [CI 计费](https://cloud.tencent.com/document/product/460/6970)
+
+## 开发与交接
+
+架构、设计约束、已知问题、测试方式和发布流程见 [HANDOFF.md](HANDOFF.md)。`HANDOFF.md` 与 `assets/capture-form.html` 是开发资料，不随插件安装包发布。
 
 ## License
 
