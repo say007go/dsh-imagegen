@@ -1,6 +1,6 @@
 {
   "name": "dsh-imagegen",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "DSH文生图/图生图插件：可接入任意OpenAI兼容的生图接口；文生图和使用已有图片链接作为参考图进行图生图都无需配置COS；若希望用本地图片作为参考图进行图生图，需配置腾讯云COS，图片会先自动压缩再存进COS；还支持自定义提示词后缀。",
   "type": "module",
   "main": "./lib/index.js",
@@ -15,7 +15,14 @@
     "references/",
     "cordis.patch.yml"
   ],
-  "keywords": ["dsh", "imagegen", "duomi", "cos", "text-to-image", "image-to-image"],
+  "keywords": [
+    "dsh",
+    "imagegen",
+    "duomi",
+    "cos",
+    "text-to-image",
+    "image-to-image"
+  ],
   "license": "MIT",
   "author": "say007go",
   "repository": {
