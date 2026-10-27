@@ -75,10 +75,13 @@ dsh plugin --profile <你的profile名> add github:say007go/dsh-imagegen
 | | API Key | 没有 Key？[点击注册多米API](https://duomiapi.com/user/register?cps=S9hKE2Oq) |
 | | Model | 输入模型 ID，默认 `gpt-image-2.5-flare`（速度较快），也可换其他模型 |
 | | 默认分辨率 | 默认 4K，可自行设置 |
+| 兼容性（高级） | 协议 / 图生图模式 | 默认 `auto` / `image-array`；标准 OpenAI 同步站选 `openai-sync`，图生图再加 `edits-multipart`；其它任务式站点用 `async-task` |
 | 腾讯云 COS | 启用 / Region / Bucket / SecretId / SecretKey | 仅"本地参考图"场景需要 |
 | 提示词后缀 | 启用 / 后缀文本 | 启用后每次提交自动追加 |
 
-> 高级项（协议、图生图模式、轮询参数）有代码默认值，开箱即用；需要调整时编辑安装包中的 `cordis.patch.yml` / 配置层即可。
+> 不确定就保持默认（多米API）。标准 OpenAI 同步站选 openai-sync；图生图再加 edits-multipart。其它任务式站点用 async-task
+
+> `taskPath` 和轮询参数仍有代码默认值，需要时编辑 `cordis.patch.yml`。
 
 ## 使用
 

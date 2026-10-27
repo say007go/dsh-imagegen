@@ -67,7 +67,7 @@
   // —— 服务桩：快照值取真实配置形态 ——
   let CARD = null;
   const value = {
-    provider: { baseUrl: "https://duomiapi.com/v1", model: "gpt-image-2.5-flare", defaultSize: "3840x2160" },
+    provider: { baseUrl: "https://duomiapi.com/v1", model: "gpt-image-2.5-flare", defaultSize: "3840x2160", protocol: "auto", img2imgMode: "image-array" },
     cos: { enabled: true, region: "ap-guangzhou", bucket: "imagegen-1250000000" },
     promptEnhance: { enabled: true, suffix: "所有中文内容必须印刷级清晰，笔画完整无残缺。禁止出现乱码、模糊、变形、粘连、错别字。" },
   };

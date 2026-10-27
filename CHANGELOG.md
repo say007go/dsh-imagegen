@@ -2,6 +2,14 @@
 
 本项目遵循 [语义化版本](https://semver.org/lang/zh-CN/)。0.x 阶段：`minor` 表示破坏性变更，`patch` 表示修复。
 
+## [0.7.5] - 2026-10-27
+
+### 新增
+
+- 插件设置新增“兼容性（高级）”小节：`协议`（auto / openai-sync / async-task）和 `图生图模式`（image-array / edits-multipart）可直接在表单选择，不再只能改 YAML。
+- 提示文案：不确定就保持默认（多米API）。标准 OpenAI 同步站选 openai-sync；图生图再加 edits-multipart。其它任务式站点用 async-task。
+- 商店配置表单截图同步更新。
+
 ## [0.7.4] - 2026-10-27
 
 ### 修复
