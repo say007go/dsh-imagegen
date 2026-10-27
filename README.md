@@ -64,7 +64,7 @@ dsh plugin --profile <你的profile名> add github:say007go/dsh-imagegen
 |------|------|------|
 | 生图接口 | Base URL | 默认多米API，可自行更换API平台 |
 | | API Key | 没有 Key？[点击注册多米API](https://duomiapi.com/user/register?cps=S9hKE2Oq) |
-| | Model | 输入模型 ID，如 `gpt-image-2.5-sunburst` |
+| | Model | 输入模型 ID，默认 `gpt-image-2.5-flare`（速度较快），也可换其他模型 |
 | | 默认分辨率 | 默认 4K，可自行设置 |
 | 腾讯云 COS | 启用 / Region / Bucket / SecretId / SecretKey | 仅"本地参考图"场景需要 |
 | 提示词后缀 | 启用 / 后缀文本 | 启用后每次提交自动追加 |
