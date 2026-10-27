@@ -1,6 +1,6 @@
 # dsh-imagegen
 
-DSH（DeepSeek Harness）文生图 / 图生图插件：接入**任意 OpenAI 兼容的生图接口**，在对话里一句话出图；可选腾讯云 COS 托管本地参考图，插件详情页自带配置表单，并内嵌 `imagegen` 技能让 Agent 开箱即用。
+DSH（DeepSeek Harness）文生图 / 图生图插件：接入**任意 OpenAI 兼容的生图接口**，在对话里一句话出图；可选腾讯云 COS 托管本地参考图，插件详情页自带配置表单；生成前必须先确认、一次只出一张等使用规则直接写在工具描述里，Agent 开箱即守规矩。
 
 ## 功能特性
 
@@ -78,7 +78,7 @@ dsh plugin --profile <你的profile名> add github:say007go/dsh-imagegen
 - **"参考这张图的风格，画一张同系列的……"**（附上图片）—— 图生图
 - **"生成 1024x1024 的方形图标"** —— 临时指定尺寸
 
-插件内嵌 `imagegen` 技能，Agent 自动掌握工具用法、成本规则与防降级护栏（工具不可用时会提示重启，而不是手写脚本）。
+工具描述里内置了使用规则：**先确认后生成**、一次只出一张、等待期间不重复提交、超时不重开新任务。
 
 ## 工作原理
 
@@ -114,7 +114,7 @@ dsh-imagegen/
 ├── package.json          # 声明 dsh.bundle + dsh.client
 ├── cordis.patch.yml      # bundle 补丁（插入 imagegen 插件）
 ├── lib/
-│   ├── index.js          # 主插件：注册 image_generate 工具 + 内嵌技能
+│   ├── index.js          # 主插件：注册 image_generate 工具（含使用规则）
 │   ├── client.js         # 插件详情页配置表单（浏览器端）
 │   ├── config.js         # 配置 schema
 │   ├── protocol.js       # 生图协议适配（同步/异步自动判定、图生图双模式）
@@ -122,7 +122,6 @@ dsh-imagegen/
 │   ├── compress.js       # sharp 参考图压缩
 │   ├── prompt.js         # 提示词后缀
 │   └── size.js           # 尺寸解析
-├── skills/imagegen/SKILL.md   # 内嵌 Agent 技能
 └── references/api_reference.md
 ```
 
