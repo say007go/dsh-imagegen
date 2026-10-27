@@ -1,6 +1,6 @@
 # dsh-imagegen
 
-DSH（DeepSeek Harness）文生图 / 图生图插件：接入**任意 OpenAI 兼容的生图接口**，在对话里一句话出图；可选腾讯云 COS 托管本地参考图，插件详情页自带配置表单；生成前必须先确认、一次只出一张等使用规则直接写在工具描述里，Agent 开箱即守规矩。
+DSH（DeepSeek Harness）文生图 / 图生图插件：接入**任意 OpenAI 兼容的生图接口**，在对话里一句话出图；可选腾讯云 COS 托管本地参考图，插件详情页自带配置表单；生成前用 `ask_user_question` 让你确认、一次只出一张等使用规则直接写在工具描述里，Agent 开箱即守规矩。
 
 ## 功能特性
 
@@ -8,8 +8,10 @@ DSH（DeepSeek Harness）文生图 / 图生图插件：接入**任意 OpenAI 兼
 
 - **文生图**：自然语言描述 → 图片链接
 - **断点续等**：生成超时或被中断时，可凭任务 ID 继续等待同一张图，不重复提交、不重复计费
-- **提交前审批**：真正生成前会弹出确认框（显示尺寸、参考图数量与提示词摘要），点允许才执行，拒绝不扣费
+- **提交前会话确认**：真正生成前先用 `ask_user_question` 请你确认提示词全文、尺寸/模型、参考图来源（URL/本地路径/附件 ID）和 `save_path`（如填写），选「确认生成」才执行；取消或修改不扣费。确认走会话，不经过 DSH 审批，因此 `approval: never` 的会话也能用
 - **图生图**：参考图可以是 **URL**（直接透传）、**本地文件**（先自动压缩，再托管到腾讯云 COS 供生图站读取）或**对话里上传图片的附件 ID**（形如 `sha256:…`，无需先存文件）；本地路径支持绝对路径，相对路径按**会话工作目录**解析
+- **多图顺序可追溯**：本地参考图上传 COS 时对象名按 `ref1` / `ref2`… 编号，返回的 `cos_uploads` 带 `index`，日志里能直接对上第几张图
+- **save_path 不覆盖**：指定路径已存在时会报错，避免误覆盖；需要覆盖请先删除旧文件
 - 成品图直接返回生图站链接
 
 ### 任意 OpenAI 兼容接口
@@ -81,7 +83,9 @@ dsh plugin --profile <你的profile名> add github:say007go/dsh-imagegen
 - **"生成 1024x1024 的方形图标"** —— 临时指定尺寸
 - **"生成一张封面图并存到 artifacts/cover.png"** —— 直接保存到指定路径
 
-工具描述里内置了使用规则：**先确认后生成**、一次只出一张、等待期间不重复提交、超时不重开新任务。
+工具描述里内置了使用规则：**每次生成前先用 `ask_user_question` 确认**、一次只出一张、等待期间不重复提交、超时不重开新任务。
+
+> 确认是会话内的提问卡片，不是 DSH 审批框；续等（`task_id`）只是查询，不弹确认。
 
 ## 工作原理
 
@@ -114,7 +118,10 @@ POST {baseUrl}/images/generations?async=true
 
 ```
 dsh-imagegen/
-├── package.json          # 声明 dsh.bundle + dsh.client
+├── package.json          # 声明 dsh.bundle + dsh.client + icon
+├── icon.svg              # 插件列表/详情页图标（替换同名文件即可换图）
+├── assets/screenshot-1.png  # 商店截图（浅色配置表单）
+├── screenshots.json      # 商店截图清单
 ├── cordis.patch.yml      # bundle 补丁（插入 imagegen 插件）
 ├── lib/
 │   ├── index.js          # 主插件：注册 image_generate 工具（含使用规则）
@@ -127,6 +134,8 @@ dsh-imagegen/
 │   └── size.js           # 尺寸解析
 └── references/api_reference.md
 ```
+
+> 图标：根目录 `icon.svg`，由 `package.json` 的顶层 `icon` 字段声明；DSH 插件列表会把它转成 data URL 显示。替换同名文件即可换图，建议 1:1、64×64 或更大。
 
 ## 安全与费用
 

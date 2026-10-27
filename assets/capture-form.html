@@ -4,21 +4,21 @@
 <meta charset="utf-8">
 <title>dsh-imagegen 配置表单截图工装</title>
 <style>
-  body { margin: 0; padding: 26px; background: #0d1017; color: #d7dade;
+  body { margin: 0; padding: 26px; background: #f3f4f6; color: #1f2328;
          font-family: "Segoe UI", "Microsoft YaHei", sans-serif; }
   .shell { max-width: 1020px; margin: 0 auto; }
   .head { display: flex; align-items: center; gap: 10px; margin: 4px 2px 10px; }
-  .head h1 { font-size: 17px; margin: 0; font-weight: 600; }
-  .head .ver { font-size: 11px; background: #262c37; padding: 2px 8px; border-radius: 999px; opacity: .85; }
-  .head .pill { font-size: 11px; color: #3fb950; margin-left: auto; }
-  .card { background: #181c24; border: 1px solid #262c37; border-radius: 12px; padding: 6px 22px 2px; }
-  .foot { font-size: 11px; opacity: .4; margin: 10px 2px 0; }
+  .head h1 { font-size: 17px; margin: 0; font-weight: 600; color: #1f2328; }
+  .head .pill { font-size: 11px; color: #1a7f37; margin-left: auto; }
+  .card { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 6px 22px 2px;
+          box-shadow: 0 1px 2px rgba(16, 24, 40, .04); }
+  .foot { font-size: 11px; color: #667085; opacity: .7; margin: 10px 2px 0; }
 </style>
 </head>
 <body>
 <div class="shell">
   <div class="head">
-    <h1>dsh-imagegen</h1><span class="ver">v0.2.0</span><span class="pill">● 运行中</span>
+    <h1>dsh-imagegen</h1><span class="pill">● 运行中</span>
   </div>
   <div class="card"><div id="root"></div></div>
   <div class="foot">插件详情页 · 配置表单（由仓库 lib/client.js 真实组件渲染）</div>
@@ -67,7 +67,7 @@
   // —— 服务桩：快照值取真实配置形态 ——
   let CARD = null;
   const value = {
-    provider: { baseUrl: "https://duomiapi.com/v1", model: "gpt-image-2.5-sunburst", defaultSize: "3840x2160" },
+    provider: { baseUrl: "https://duomiapi.com/v1", model: "gpt-image-2.5-flare", defaultSize: "3840x2160" },
     cos: { enabled: true, region: "ap-guangzhou", bucket: "imagegen-1250000000" },
     promptEnhance: { enabled: true, suffix: "所有中文内容必须印刷级清晰，笔画完整无残缺。禁止出现乱码、模糊、变形、粘连、错别字。" },
   };

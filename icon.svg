@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-labelledby="t">
+  <title id="t">dsh-imagegen</title>
+  <defs>
+    <linearGradient id="bg" x1="8" y1="6" x2="58" y2="60" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#C62F2F"/>
+      <stop offset="1" stop-color="#8E1414"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#bg)"/>
+  <rect x="9" y="22" width="36" height="28" rx="4.5" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linejoin="round"/>
+  <circle cx="19" cy="31" r="3.2" fill="#FFFFFF"/>
+  <path d="M12 46.5l8-8 5.2 4.5 4.2-3.6 7.6 6.1v1.4a1.7 1.7 0 0 1-1.7 1.7H13.7a1.7 1.7 0 0 1-1.7-1.7v-.4z" fill="#FFFFFF"/>
+  <path d="M50 6.4l2.9 4.7 4.7 2.9-4.7 2.9L50 21.6l-2.9-4.7L42.4 14l4.7-2.9z" fill="#FFD166"/>
+</svg>
