@@ -340,10 +340,12 @@ url: https://github.com/say007go/dsh-imagegen
 name: say007go/dsh-imagegen
 category: vision
 description:
-  en: 'Image generation tool for DSH: text-to-image and image-to-image through OpenAI-style or task-based APIs, with session confirmation, ordered reference images (URL/local/optional COS), actual-size reporting, and clickable local-file delivery.'
-  zh: '面向 DSH 的生图工具：通过 OpenAI 风格或任务式接口完成文生图与图生图，支持会话确认、有序参考图（URL/本地/可选 COS）、实际尺寸和可点击本地文件交付。'
+  en: 'DSH text-to-image/image-to-image plugin: compatible with OpenAI-style image generation APIs, with 多米API as the default; standard OpenAI endpoints may require protocol, image-to-image mode and size adjustments; text-to-image and URL reference images do not use COS, while local reference images can be compressed and stored in COS; custom prompt suffixes are supported.'
+  zh: 'DSH文生图/图生图插件：兼容OpenAI风格生图接口，默认适配多米API；标准OpenAI需调整协议、图生图模式和尺寸；文生图和URL参考图无需COS，本地参考图可压缩后存COS；支持自定义提示词后缀。'
 icon: https://raw.githubusercontent.com/say007go/dsh-imagegen/main/assets/icon-180.png
 ```
+
+这条 `zh` 与 `package.json` 的详细版保持一致，`en` 是它的忠实翻译；不要再加“ordered reference images / clickable local-file delivery”那类功能清单式表述，除非先改详细版。
 
 注意：
 
