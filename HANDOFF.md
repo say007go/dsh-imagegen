@@ -1,8 +1,8 @@
 # dsh-imagegen 交接文档
 
-> 面向后续 Agent / 新开对话。最后更新：2026-10-27。
+> 面向后续 Agent / 新开对话。最后更新：2026-11-23。
 >
-> 运行时版本：**0.7.7**；代码基线：**dd3c764**；分支：**main**。
+> 运行时版本：**0.7.8**；代码基线：**cb09573**；分支：**main**。
 >
 > 本文件是开发交接文档，可能有一笔后续的 `docs:` 提交，代码基线仍以上面的运行时版本/提交为准。
 >
@@ -28,9 +28,9 @@ DSH（DeepSeek Harness）插件：把 OpenAI 风格/任务式生图接口接进�
 | 项 | 值 |
 |---|---|
 | 仓库 | `https://github.com/say007go/dsh-imagegen` |
-| 分支 | `main`，与 `origin/main` 一致 |
-| 版本 | `0.7.7`（`package.json`） |
-| 代码基线 | `dd3c764 fix: v0.7.7 - complete 多米API settings labels`（本文档的 docs 提交可能在其后） |
+| 分支 | `main`，本地有未推送提交，领先 `origin/main` |
+| 版本 | `0.7.8`（`package.json`） |
+| 代码基线 | `cb09573 fix: v0.7.8 - harden COS lazy-load error handling`（本文档的 docs 提交可能在其后） |
 | Tag | 只有 `v0.2.0`～`v0.6.0`；**0.7.x 未打 tag/release** |
 | 自动化测试 | 无 `tests/`、无 CI |
 | 构建 | 无构建步骤；`lib/client.js` 是手工 `__ModuleLoader__` 模块 |
@@ -235,7 +235,9 @@ with sync_playwright() as p:
 ### 未验证/需要真实环境确认
 
 - 0.7.5+ 设置页的 `.volatile()` union 字段在真实 DSH 配置页中的显示（截图工装是 mock，不是真实配置页）
-- 0.7.7 更新后的真实生图全链路（本机 profile 仍是 0.7.3）
+- 0.7.8 更新后的真实生图全链路（本机 profile 仍是 0.7.3）
+- 0.7.8 的 COS 懒加载与缺失依赖分支已用 fake 模块验证；真实 COS 上传/签名仍需凭证环境确认
+- 0.7.8 在真实 DSH profile 的激活与插件页更新流程（当前只做了 fake DSH 模块加载测试）
 - 不同生图站的 `auto`/`openai-sync`/`async-task` 行为
 
 ## 8. 已知问题与 backlog
