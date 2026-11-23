@@ -8,6 +8,7 @@
 
 - COS SDK 改为按需加载：`cos-nodejs-sdk-v5` 及其 `request → tough-cookie → psl` 依赖链不再在插件激活时导入，避免精简安装环境缺少 `psl` 时整个插件无法启用。
 - 缺少 COS SDK 或其传递依赖时，文生图与 URL 参考图仍可用；只有本地参考图路径返回明确提示，建议改用图片 URL，或重装插件补齐依赖后重启 DSH。
+- 补充：同时识别 CJS `Cannot find module` 与 ESM `Cannot find package` 形式的缺失依赖；`new COS` 初始化失败时补充客户端初始化上下文。
 
 ## [0.7.7] - 2026-10-27
 
